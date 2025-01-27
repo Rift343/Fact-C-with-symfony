@@ -3,15 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+        <div>
+            <h1>Facto</h1>
+            <form action="{{ path("app_facto") }}" method="get">
+                <label>Entrez un nombre n</label>
+                <input type="number" id="nfacto" name="n" required>
+                <button type="submit">Calculer n!</button>
+            </form>
+            <h3>Résultat : {{ resultFacto }}</h3>
+        </div>
+
+        <div>
+            <h1>Combinaison</h1>
+            <form action="{{ path('app_combi') }}" method="get">
+                <label>Entrez n :</label>
+                <input type="number" id="nCombi" name="n" required>
+                <label>Entrez p :</label>
+                <input type="number" id="pCombi" name="p" required>
+                <button type="submit">Calculer C(n, p)</button>
+            </form>
+            <h3>Résultat : {{ resultCombi }}</h3>
+        </div>
+        {% endblock %}
     </body>
 </html>
