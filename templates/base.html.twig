@@ -13,6 +13,9 @@
                 <input type="number" id="nfacto" name="n" required>
                 <button type="submit">Calculer n!</button>
             </form>
+            <div>
+                Valeur de n : {{nValueFact}}
+            </div>
             <h3>Résultat : {{ resultFacto }}</h3>
         </div>
 
@@ -25,7 +28,18 @@
                 <input type="number" id="pCombi" name="p" required>
                 <button type="submit">Calculer C(n, p)</button>
             </form>
+            <div>
+                Valeur de n : {{nValueCombi}}
+                Valeur de p : {{pValueCombi}} 
+            </div>
             <h3>Résultat : {{ resultCombi }}</h3>
+        </div>
+
+        <div>
+            <h1>Mastermind</h1>
+            <form action = "{{ path('app_mastermind') }}" method ="get">
+                <button type="submit"> Allez vers le Mastermind</button>
+            </button>
         </div>
         {% endblock %}
     </body>

@@ -12,11 +12,17 @@ final class FactController extends AbstractController
 
     #[Route(path:"/", name:"homePage")]
     public function homePage(): Response{
-        return $this->render(view: "/base.html.twig",parameters: ['resultCombi' => 0,'resultFacto'=> 0]);
+        return $this->render(view: "/base.html.twig",parameters: ['resultCombi' => 0,'resultFacto'=> 0,'nValueCombi'=>0,'pValueCombi'=>0,'nValueFact'=>0]);
+    }
+
+    #[Route(path:'/mastermind', name:'app_mastermind')]
+    public function app_mastermind(Request $request): Response{
+
+        return $this->render(view:'/fact/mastermind.html.twig',parameters: []);
     }
 
 
-    #[Route('/fact/', name: 'app_fact')]
+    #[Route('/fact', name: 'app_fact')]
     public function index(): Response
     {
         return $this->render('fact/index.html.twig', [
@@ -29,7 +35,7 @@ final class FactController extends AbstractController
         $param = $request->query->all();
         $n = $param['n'];
         $res = calcul::factorielle($n);
-        return  $this->render('/base.html.twig', ['resultCombi' => 0,'resultFacto'=> $res]);    }
+        return  $this->render('/base.html.twig', ['resultCombi' => 0,'resultFacto'=> $res,'nValueCombi'=>0,'pValueCombi'=>0,'nValueFact'=>$n]);    }
 
     #[Route('/combi', name:'app_combi',methods:['GET'])]
     public function app_combi(Request $request): Response{
@@ -37,14 +43,14 @@ final class FactController extends AbstractController
         $n =$param['n'];
         $p = $param['p'];
         $res =calcul::combinaison($n, $p);
-        return  $this->render('/base.html.twig', ['resultCombi' => $res,'resultFacto'=>0]);
+        return  $this->render('/base.html.twig', ['resultCombi' => $res,'resultFacto'=>0,'nValueCombi'=>$n,'pValueCombi'=>$p,'nValueFact'=>0]);
     }
 }
 
 
 final class calcul 
 {
-    public static function factorielle(int $n): int{
+    public static function factorielle(int $n): float{
         if ($n <= 0) {
             return 0;
         }
@@ -57,13 +63,13 @@ final class calcul
         }
     }
 
-    public static function combinaison(int $n, int $p):int{
+    public static function combinaison(int $n, int $p):float{
         $factN = calcul::factorielle($n);//n!
         $factP = calcul::factorielle($p);//p!
         $factNmp = calcul::factorielle($n - $p);//(n-p)!
         if ($factNmp <= 0 or $factP <= 0 or $factN <= 0 ) {
             return 0;
         }
-        return $factN /($factP * $factNmp);//n!/(n!*(n-p)!)
+        return $factN /($factP * $factNmp);//n!/(p!*(n-p)!)
     }
 }
