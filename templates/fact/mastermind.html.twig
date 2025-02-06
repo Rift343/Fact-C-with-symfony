@@ -7,8 +7,29 @@
     <body>
         {% block body %}
             <div>
-                <h1>Mastermind</h2>
+                <h1>Mastermind</h1>
+                <div>
+                    <h1>Historique Mastermind</h1>
+                    {% for history in jeu.getEssais() %}
+                        <div>{{ history[1] }} {{ history[0] }}</div>
+                    {% endfor %}
+                </div>
+                <div>
+                    {% if  jeu.isFini()%}
+                        <h1>Vous avez gagné</h1>
 
+                    {% endif %}
+
+                </div>
+                <div>
+                    <form action = "{{ path('sendTry') }}" method ="get">
+                        <input type="number" id="code" name="code">
+                        <button type="submit">Envoyer</button>
+                    </form>
+
+
+
+                </div>
             </div>
         {% endblock %}
     </body>
